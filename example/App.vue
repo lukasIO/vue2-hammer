@@ -9,7 +9,7 @@
     <div
       class="content"
       v-hammer:press="test2"
-      v-hammer:tap="test"
+      v-hammer:tap="{callback: onTap, options: {taps: 2}}"
       v-hammer:pan.left="test"
       v-hammer:panstart="test2"
       v-hammer:panend="test2"
