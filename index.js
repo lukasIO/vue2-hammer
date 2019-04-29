@@ -85,6 +85,11 @@ export const VueHammer = {
           if (localOptions) {
             this.guardDirections(localOptions)
             recognizer.set(localOptions)
+          }     
+          //apply directive options
+          if (binding.value.options) {
+            this.guardDirections(binding.value.options)
+            recognizer.set(binding.value.options)
           }
         }
       },
@@ -96,11 +101,15 @@ export const VueHammer = {
           mc.off(eventWithDir, mc.handler)
         }
         if (typeof binding.value !== 'function') {
-          mc.handler = null
-          console.warn(
-            '[vue-hammer] invalid handler function for v-hammer: ' +
-            binding.arg
-          )
+          if(!binding.value.callback || typeof binding.value.callback !== 'function') {
+            mc.handler = null
+            console.warn(
+              '[vue-hammer] invalid handler function for v-hammer: ' +
+              binding.arg
+            )
+          } else {
+            mc.on(eventWithDir, (mc.handler = binding.value.callback));
+          }
         } else {
           mc.on(eventWithDir, (mc.handler = binding.value))
         }
@@ -114,11 +123,15 @@ export const VueHammer = {
           mc.off(eventWithDir, mc.handler)
         }
         if (typeof binding.value !== 'function') {
-          mc.handler = null
-          console.warn(
-            '[vue-hammer] invalid handler function for v-hammer: ' +
-            binding.arg
-          )
+          if(!binding.value.callback || typeof binding.value.callback !== 'function') {
+            mc.handler = null
+            console.warn(
+              '[vue-hammer] invalid handler function for v-hammer: ' +
+              binding.arg
+            )
+          } else {
+            mc.on(eventWithDir, (mc.handler = binding.value.callback));
+          }
         } else {
           mc.on(eventWithDir, (mc.handler = binding.value))
         }
